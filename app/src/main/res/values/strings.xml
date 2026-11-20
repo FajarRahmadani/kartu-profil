@@ -6,6 +6,10 @@
     <string name="hint_email">Email</string>
     <string name="hint_tahun">Tahun lahir (mis. 2004)</string>
     <string name="btn_buat">Buat Kartu</string>
+    <string name="btn_hapus_simpan">Hapus data tersimpan</string>
+    <string name="status_awal">Belum ada data tersimpan.</string>
+    <string name="status_format">Terakhir: %1$s, %2$d tahun • %3$s</string>
+    <string name="status_dihapus">Data tersimpan dihapus.</string>
     <string name="judul_hasil">Kartu Profilmu</string>
     <string name="label_umur">Umur</string>
     <string name="label_kategori">Kategori</string>

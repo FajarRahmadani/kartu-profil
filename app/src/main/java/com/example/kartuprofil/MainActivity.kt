@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Calendar
 
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etEmail: EditText
     private lateinit var etTahunLahir: EditText
     private lateinit var btnBuat: Button
+    private lateinit var btnHapusSimpan: Button
+    private lateinit var tvStatus: TextView
     private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.etEmail)
         etTahunLahir = findViewById(R.id.etTahunLahir)
         btnBuat = findViewById(R.id.btnBuat)
+        btnHapusSimpan = findViewById(R.id.btnHapusSimpan)
+        tvStatus = findViewById(R.id.tvStatus)
 
         // "Lemari" lokal: berkas "profil", MODE_PRIVATE = hanya aplikasi ini yang bisa membaca
         prefs = getSharedPreferences(PREFS_PROFIL, MODE_PRIVATE)
@@ -40,6 +45,16 @@ class MainActivity : AppCompatActivity() {
         val namaTersimpan = prefs.getString(KEY_NAMA_TERAKHIR, "") ?: ""
         if (namaTersimpan.isNotEmpty()) {
             etNama.setText(namaTersimpan)
+        }
+        // Umur & kategori terakhir ditampilkan di tvStatus
+        tampilkanStatusTersimpan()
+
+        // ---------- HAPUS: benar-benar mengosongkan penyimpanan ----------
+        // clear() menghapus SEMUA kunci di berkas "profil" (remove(kunci) hanya satu kunci).
+        btnHapusSimpan.setOnClickListener {
+            prefs.edit().clear().apply()
+            etNama.text.clear()
+            tvStatus.text = getString(R.string.status_dihapus)
         }
 
         btnBuat.setOnClickListener {
@@ -121,7 +136,9 @@ class MainActivity : AppCompatActivity() {
             prefs.edit()
                 .putString(KEY_NAMA_TERAKHIR, nama)
                 .putInt(KEY_UMUR_TERAKHIR, umur)
+                .putString(KEY_KATEGORI_TERAKHIR, kategori)
                 .apply()
+            tampilkanStatusTersimpan()
 
             // ---------- OUTPUT: kirim hasil olahan ke layar kedua ----------
             val intent = Intent(this, SecondActivity::class.java).apply {
@@ -135,6 +152,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Membaca nama, umur, dan kategori terakhir. Teks awal di tvStatus dibiarkan
+    // bila data belum lengkap (belum pernah disimpan, atau sudah dihapus).
+    private fun tampilkanStatusTersimpan() {
+        val nama = prefs.getString(KEY_NAMA_TERAKHIR, "") ?: ""
+        val umur = prefs.getInt(KEY_UMUR_TERAKHIR, -1)
+        val kategori = prefs.getString(KEY_KATEGORI_TERAKHIR, "") ?: ""
+
+        if (nama.isNotEmpty() && umur >= 0 && kategori.isNotEmpty()) {
+            tvStatus.text = getString(R.string.status_format, nama, umur, kategori)
+        }
+    }
+
     // Kunci simpan dan kunci baca harus sama persis, jadi ditulis sebagai konstanta
     companion object {
         private const val TAHUN_MINIMAL = 1950
@@ -142,5 +171,6 @@ class MainActivity : AppCompatActivity() {
         const val PREFS_PROFIL = "profil"
         const val KEY_NAMA_TERAKHIR = "nama_terakhir"
         const val KEY_UMUR_TERAKHIR = "umur_terakhir"
+        const val KEY_KATEGORI_TERAKHIR = "kategori_terakhir"
     }
 }

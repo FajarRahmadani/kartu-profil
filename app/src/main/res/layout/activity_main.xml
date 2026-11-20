@@ -22,10 +22,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="12dp"
             android:text="@string/sub_form"
             android:textColor="@color/text_muted"
             android:textSize="14sp" />
+
+        <!-- Menampilkan data terakhir yang tersimpan (nama, umur, kategori) -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/status_awal"
+            android:textColor="@color/primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etNama"
@@ -63,6 +74,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/btn_buat" />
+
+        <Button
+            android:id="@+id/btnHapusSimpan"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/btn_hapus_simpan" />
 
     </LinearLayout>
 </ScrollView>
