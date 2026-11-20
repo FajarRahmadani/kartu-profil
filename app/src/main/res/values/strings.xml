@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Kartu Profil</string>
+    <string name="judul_form">Buat Kartu Profil</string>
+    <string name="sub_form">Isi data dengan benar, lalu aplikasi akan menghitung umur dan kategorimu.</string>
+    <string name="hint_nama">Nama lengkap</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_tahun">Tahun lahir (mis. 2004)</string>
+    <string name="btn_buat">Buat Kartu</string>
+    <string name="judul_hasil">Kartu Profilmu</string>
+    <string name="label_umur">Umur</string>
+    <string name="label_kategori">Kategori</string>
+    <string name="label_generasi">Generasi</string>
+    <string name="btn_kembali">Buat Kartu Lain</string>
+</resources>
