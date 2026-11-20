@@ -76,9 +76,9 @@ Catatan: `tvStatus` menampilkan umur **saat data terakhir disimpan**, bukan dihi
 
 ### Tangkapan layar
 
-| (a) Nama terisi otomatis setelah buka ulang | (b) Kolom kosong setelah hapus data aplikasi |
-|:---:|:---:|
-| <img src="screenshots/a-nama-terisi-otomatis.png" width="250"> | <img src="screenshots/b-kolom-kosong-setelah-hapus.png" width="250"> |
+|          (a) Nama terisi otomatis setelah buka ulang           |             (b) Kolom kosong setelah hapus data aplikasi             |
+|:--------------------------------------------------------------:|:--------------------------------------------------------------------:|
+| <img src="screenshots/a-nama-terisi-otomatis.jpg" width="250"> | <img src="screenshots/b-kolom-kosong-setelah-hapus.jpg" width="250"> |
 
 ### Latihan 5: SharedPreferences vs Room
 
