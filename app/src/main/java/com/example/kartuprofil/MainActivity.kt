@@ -34,6 +34,14 @@ class MainActivity : AppCompatActivity() {
         // "Lemari" lokal: berkas "profil", MODE_PRIVATE = hanya aplikasi ini yang bisa membaca
         prefs = getSharedPreferences(PREFS_PROFIL, MODE_PRIVATE)
 
+        // ---------- BACA KEMBALI: isi otomatis kolom nama dengan nama terakhir ----------
+        // Nilai bawaan "" + isNotEmpty() menjaga aplikasi tetap aman bila data
+        // belum ada atau sudah dihapus (mis. "Hapus data" di Pengaturan HP).
+        val namaTersimpan = prefs.getString(KEY_NAMA_TERAKHIR, "") ?: ""
+        if (namaTersimpan.isNotEmpty()) {
+            etNama.setText(namaTersimpan)
+        }
+
         btnBuat.setOnClickListener {
             // Bersihkan tanda error dari percobaan sebelumnya
             etNama.error = null
