@@ -1,6 +1,7 @@
 package com.example.kartuprofil
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etEmail: EditText
     private lateinit var etTahunLahir: EditText
     private lateinit var btnBuat: Button
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.etEmail)
         etTahunLahir = findViewById(R.id.etTahunLahir)
         btnBuat = findViewById(R.id.btnBuat)
+
+        // "Lemari" lokal: berkas "profil", MODE_PRIVATE = hanya aplikasi ini yang bisa membaca
+        prefs = getSharedPreferences(PREFS_PROFIL, MODE_PRIVATE)
 
         btnBuat.setOnClickListener {
             // Bersihkan tanda error dari percobaan sebelumnya
@@ -102,6 +107,14 @@ class MainActivity : AppCompatActivity() {
                 else -> "Baby Boomer"
             }
 
+            // ---------- SIMPAN: hanya data yang SUDAH lolos validasi ----------
+            // apply() = simpan asinkron di latar belakang (bukan commit()),
+            // dan diletakkan SEBELUM startActivity(intent).
+            prefs.edit()
+                .putString(KEY_NAMA_TERAKHIR, nama)
+                .putInt(KEY_UMUR_TERAKHIR, umur)
+                .apply()
+
             // ---------- OUTPUT: kirim hasil olahan ke layar kedua ----------
             val intent = Intent(this, SecondActivity::class.java).apply {
                 putExtra(SecondActivity.EXTRA_NAMA, nama)
@@ -114,7 +127,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Kunci simpan dan kunci baca harus sama persis, jadi ditulis sebagai konstanta
     companion object {
         private const val TAHUN_MINIMAL = 1950
+
+        const val PREFS_PROFIL = "profil"
+        const val KEY_NAMA_TERAKHIR = "nama_terakhir"
+        const val KEY_UMUR_TERAKHIR = "umur_terakhir"
     }
 }
